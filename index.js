@@ -3,11 +3,13 @@
 const express = require('express')
 //Logitukseen
 const morgan = require('morgan')
+//cors:lla mahdollistetaan backendin ja fronendin kommunikointi
+//Koska eri origineissa Front endin origin portti 3000 ja backendin portti 3001
+const cors = require('cors')
 const app = express()
 
-
-
 app.use(express.json())
+app.use(cors())
 
 //Tehdään kustomoitu logitus, jossa on mukana POST actionin body eli sisältö joka
 //lähetetään palvelimelle
@@ -16,7 +18,7 @@ morgan.token('body', (req, res) => JSON.stringify(req.body))
 //Otetaan logitus käyttöön, tässä alku on 'tiny' + määritelty body
 //voisi käyttää myös app.use(morgan('tiny')), mutta silloin ei saada mukaan
 //POST actionin bodya=palvelimelle lähetettävä data
-app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body :deitti'))
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'))
 
 
 //Määritellään taulukko sisältöineen testausta varten
@@ -119,8 +121,14 @@ app.delete('/api/persons/:id', (request, response) => {
 
     response.status(204).end()
 })
-//Määritellään sovelluksen portti
-const PORT = 3001
+//Määritellään sovelluksen portti ilman Herokua
+//const PORT = 3001
+//app.listen(PORT, () => {
+    //console.log(`Server running on port ${PORT}`)
+//})
+
+//Portti määritys Herkoua varten
+const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`)
+  console.log(`Server running on port ${PORT}`)
 })
