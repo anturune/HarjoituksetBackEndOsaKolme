@@ -8,7 +8,12 @@ const morgan = require('morgan')
 const cors = require('cors')
 const app = express()
 
+//Otetaan middlwaret käyttöön, ensimmäisenä pitää ottaa käyttöön express
 app.use(express.json())
+//tarkastaa Express GET-tyyppisten HTTP-pyyntöjen yhteydessä ensin löytyykö 
+//pyynnön polkua vastaavan nimistä tiedostoa hakemistosta build. 
+//Jos löytyy, palauttaa express tiedoston.
+app.use(express.static('build'))
 app.use(cors())
 
 //Tehdään kustomoitu logitus, jossa on mukana POST actionin body eli sisältö joka
