@@ -7,7 +7,7 @@ require('dotenv').config()
 //HUOM! TÄMÄN PITÄÄ OLLA require('dotenv').config() JÄLKEEN
 const Person = require('./models/person')
 
-//----------------MIDDLEWAREJEN MÄÄRITYKSET ALKAA---------------------
+//----------------MIDDLEWAREJEN MÄÄRITYKSET ALKAA----------------------
 
 const express = require('express')
 //Logitukseen
