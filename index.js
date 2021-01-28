@@ -19,6 +19,7 @@ const app = express()
 const unknownEndpoint = (request, response) => {
     response.status(404).send({ error: 'unknown endpoint' })
 }
+
 //Error handelerin middlewaren määritys
 //Otetaan käyttöön vasta koodin lopussa, ennen porttimäärityksiä
 const errorHandler = (error, request, response, next) => {
@@ -188,7 +189,7 @@ app.get('/api/persons/:id', (request, response, next) => {
     //}
 
     //Tämän muotoisena koodina, kun on kiinnin tietokannassa
-    //Tässä sovelluksessa kiinni Mongossa. 
+    //Tässä sovelluksessa kiinni Mongossa.
     //Lisäksi virheiden käsittely
     Person.findById(request.params.id)
         .then(person => {
